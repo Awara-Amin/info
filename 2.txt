@@ -1,0 +1,247 @@
+Last login: Wed Mar 24 11:17:45 on ttys000
+
+The default interactive shell is now zsh.
+To update your account to use zsh, please run `chsh -s /bin/zsh`.
+For more details, please visit https://support.apple.com/kb/HT208050.
+awaras-MacBook-Pro:~ awaraamin$ mongo
+MongoDB shell version v4.4.3
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("2ffb8555-61fd-4231-b076-c4684ad95bf6") }
+MongoDB server version: 4.4.3
+---
+The server generated these startup warnings when booting:
+        2021-03-24T10:44:57.707+03:00: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+        2021-03-24T10:44:57.708+03:00: Soft rlimits too low
+        2021-03-24T10:44:57.708+03:00:         currentValue: 256
+        2021-03-24T10:44:57.708+03:00:         recommendedMinimum: 64000
+---
+---
+        Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+        metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+        The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+        and anyone you share the URL with. MongoDB may use this information to make product
+        improvements and to suggest MongoDB products and deployment options to you.
+
+        To enable free monitoring, run the following command: db.enableFreeMonitoring()
+        To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+---
+> help
+	db.help()                    help on db methods
+	db.mycoll.help()             help on collection methods
+	sh.help()                    sharding helpers
+	rs.help()                    replica set helpers
+	help admin                   administrative help
+	help connect                 connecting to a db help
+	help keys                    key shortcuts
+	help misc                    misc things to know
+	help mr                      mapreduce
+
+	show dbs                     show database names
+	show collections             show collections in current database
+	show users                   show users in current database
+	show profile                 show most recent system.profile entries with time >= 1ms
+	show logs                    show the accessible logger names
+	show log [name]              prints out the last segment of log in memory, 'global' is default
+	use <db_name>                set current database
+	db.mycoll.find()             list objects in collection mycoll
+	db.mycoll.find( { a : 1 } )  list objects in mycoll where a == 1
+	it                           result of the last line evaluated; use to further iterate
+	DBQuery.shellBatchSize = x   set default number of items to display on shell
+	exit                         quit the mongo shell
+> show dbs
+admin    0.000GB
+config   0.000GB
+local    0.000GB
+shopDB   0.000GB
+shopDB2  0.000GB
+> use shopDB3
+switched to db shopDB3
+> SHOW DBS
+uncaught exception: SyntaxError: unexpected token: identifier :
+@(shell):1:5
+> show dbs
+admin    0.000GB
+config   0.000GB
+local    0.000GB
+shopDB   0.000GB
+shopDB2  0.000GB
+> kaka,this is how you create data >  db.products.insertOne. You should know that name of the collection is changed here products. and this products is
+uncaught exception: SyntaxError: unexpected token: identifier :
+@(shell):1:10
+> db
+shopDB3
+> to creat a table like what we did in SQL
+uncaught exception: SyntaxError: unexpected token: identifier :
+@(shell):1:3
+> db
+shopDB3
+> db.products.insertOne({_id: 1, name: "pen", price: 1.20})
+WriteError({
+	"index" : 0,
+	"code" : 11000,
+	"errmsg" : "E11000 duplicate key error collection: shopDB3.products index: _id_ dup key: { _id: 1.0 }",
+	"op" : {
+		"_id" : 1,
+		"name" : "pen",
+		"price" : 1.2
+	}
+}) :
+WriteError({
+	"index" : 0,
+	"code" : 11000,
+	"errmsg" : "E11000 duplicate key error collection: shopDB3.products index: _id_ dup key: { _id: 1.0 }",
+	"op" : {
+		"_id" : 1,
+		"name" : "pen",
+		"price" : 1.2
+	}
+})
+WriteError@src/mongo/shell/bulk_api.js:458:48
+mergeBatchResults@src/mongo/shell/bulk_api.js:855:49
+executeBatch@src/mongo/shell/bulk_api.js:919:13
+Bulk/this.execute@src/mongo/shell/bulk_api.js:1163:21
+DBCollection.prototype.insertOne@src/mongo/shell/crud_api.js:264:9
+@(shell):1:1
+> show collections
+products
+> db
+shopDB3
+> db.products.insertOne({_id: 2, name: "pencil", price: 0.80})
+{ "acknowledged" : true, "insertedId" : 2 }
+> show collections
+products
+> to know what we have in this products type like this
+uncaught exception: SyntaxError: unexpected token: identifier :
+@(shell):1:3
+> show db
+uncaught exception: Error: don't know how to show [db] :
+shellHelper.show@src/mongo/shell/utils.js:1191:11
+shellHelper@src/mongo/shell/utils.js:819:15
+@(shellhelp2):1:1
+> show dbs
+admin    0.000GB
+config   0.000GB
+local    0.000GB
+shopDB   0.000GB
+shopDB2  0.000GB
+shopDB3  0.000GB
+> db
+shopDB3
+> show collections
+products
+> db.products.find()
+{ "_id" : 1, "name" : "pen", "price" : 1.2 }
+{ "_id" : 2, "name" : "pencil", "price" : 0.8 }
+> here we use find to read our data
+uncaught exception: SyntaxError: unexpected token: identifier :
+@(shell):1:5
+> db.products.find() this if for every thing
+uncaught exception: SyntaxError: unexpected token: keyword 'this' :
+@(shell):1:19
+> for a specific query for a piece of data in your collection, you can add querry in there
+uncaught exception: SyntaxError: missing ( after for :
+@(shell):1:4
+> db.products.find({name:"pencil"})
+{ "_id" : 2, "name" : "pencil", "price" : 0.8 }
+> when we have alot of value for price, so that is how you do querry for a specific one which is greater than 1$
+uncaught exception: SyntaxError: unexpected token: identifier :
+@(shell):1:5
+> db.products.find({price: { $gt: 1}})
+{ "_id" : 1, "name" : "pen", "price" : 1.2 }
+> to returen only a specific field in a table we add another query and try to know that 1 = true and 0 false
+uncaught exception: SyntaxError: unexpected token: identifier :
+@(shell):1:3
+> db.products.find({_id: 1}, {name:1})
+{ "_id" : 1, "name" : "pen" }
+> see we id and name
+uncaught exception: SyntaxError: unexpected token: identifier :
+@(shell):1:4
+> to remove the id write like this
+uncaught exception: SyntaxError: unexpected token: identifier :
+@(shell):1:3
+> db.products.find({_id: 1}, {name: 1, _id: 0})
+{ "name" : "pen" }
+> see kaka how it looks! becuase Id by default always comes back. but you can remove like that
+uncaught exception: SyntaxError: unexpected token: identifier :
+@(shell):1:4
+> NOW, how to update, which document you want to update and in that document which elemnt you want to update
+uncaught exception: SyntaxError: unexpected token: identifier :
+@(shell):1:9
+> db.products.updateOne({_id: 1}, {$set: {stock: 32}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.products.find()
+{ "_id" : 1, "name" : "pen", "price" : 1.2, "stock" : 32 }
+{ "_id" : 2, "name" : "pencil", "price" : 0.8 }
+> db.products.updateOne({_id: 2}, {$set: {stock: 12}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.products.find()
+{ "_id" : 1, "name" : "pen", "price" : 1.2, "stock" : 32 }
+{ "_id" : 2, "name" : "pencil", "price" : 0.8, "stock" : 12 }
+> NOW, how to delete from our collections
+uncaught exception: SyntaxError: unexpected token: identifier :
+@(shell):1:9
+> db.products.deleteOne({_id: 2})
+{ "acknowledged" : true, "deletedCount" : 1 }
+> db.products.find()
+{ "_id" : 1, "name" : "pen", "price" : 1.2, "stock" : 32 }
+> You see kaka to delete something you need a fileter :)
+uncaught exception: SyntaxError: unexpected token: identifier :
+@(shell):1:4
+> Now, relationships using Mngodb
+uncaught exception: SyntaxError: unexpected token: identifier :
+@(shell):1:19
+> db.products.insert(
+... {
+... _id: 3,
+... name: "Rubber",
+... price: 1.30,
+... stock: 43,
+... reviews: [
+...     {
+...     authorName: "Sally",
+...     rating: 5,
+...     review: "Best rubber ever!"
+...     },
+...     {
+...     authorName: "Awara",
+...     rating: 5,
+...     review: "Awesome rubber!"
+...     }]
+... }
+... )
+WriteResult({ "nInserted" : 1 })
+> we added one product now
+uncaught exception: SyntaxError: unexpected token: identifier :
+@(shell):1:3
+> db.products.find()
+{ "_id" : 1, "name" : "pen", "price" : 1.2, "stock" : 32 }
+{ "_id" : 3, "name" : "Rubber", "price" : 1.3, "stock" : 43, "reviews" : [ { "authorName" : "Sally", "rating" : 5, "review" : "Best rubber ever!" }, { "authorName" : "Awara", "rating" : 5, "review" : "Awesome rubber!" } ] }
+> kaka, this is called embedding too, now i add a product with id 2 and this product has data embeding
+uncaught exception: SyntaxError: unexpected token: identifier :
+@(shell):1:11
+> db.products.insert(
+... {
+... _id: 2,
+... name: "Pencil",
+... price: 0.80,
+... stock: 12,
+... reviews: [
+...     {
+...     authorName: "Bahasht",
+...     rating: 4,
+...     review: "A good Pencil!"
+...     },
+...     {
+...     authorName: "Awara",
+...     rating: 5,
+...     review: "Awesome Pencil!"
+...     }]
+... }
+... )
+WriteResult({ "nInserted" : 1 })
+> db.products.find()
+{ "_id" : 1, "name" : "pen", "price" : 1.2, "stock" : 32 }
+{ "_id" : 3, "name" : "Rubber", "price" : 1.3, "stock" : 43, "reviews" : [ { "authorName" : "Sally", "rating" : 5, "review" : "Best rubber ever!" }, { "authorName" : "Awara", "rating" : 5, "review" : "Awesome rubber!" } ] }
+{ "_id" : 2, "name" : "Pencil", "price" : 0.8, "stock" : 12, "reviews" : [ { "authorName" : "Bahasht", "rating" : 4, "review" : "A good Pencil!" }, { "authorName" : "Awara", "rating" : 5, "review" : "Awesome Pencil!" } ] }
+>
